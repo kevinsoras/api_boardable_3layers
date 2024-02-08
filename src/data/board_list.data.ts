@@ -19,3 +19,20 @@ export const createBoard_list = async (title:string,boards_id:number) => {
 
   return (await query(queryT, queryParams)).rows[0];
 };
+
+export const createDefaultBoards_list = async(boards_id:number)=>{
+  const dateNow = new Date();
+  const queryParams: (string | number | Date)[] = [
+    dateNow,
+    boards_id
+  ];
+  let queryT = `
+  INSERT INTO 
+  board_list(title,createdAt,updatedAt,boards_id) 
+  values 
+  ('To Do',$1,$1,$2),
+  ('Doing',$1,$1,$2),
+  ('Done',$1,$1,$2)
+  `;
+  return (await query(queryT, queryParams)).rows;
+}
