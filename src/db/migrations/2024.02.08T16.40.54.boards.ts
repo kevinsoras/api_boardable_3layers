@@ -8,7 +8,7 @@ export const up: Migration = async (params) => {
     color varchar(20),
     createdAt timestamp NOT NULL,
     updatedAt timestamp NOT NULL,
-    users_id integer REFERENCES users(id)
+    users_id integer REFERENCES users(id) ON DELETE CASCADE
   );
   `);
 };
