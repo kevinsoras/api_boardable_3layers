@@ -6,8 +6,8 @@ export const up: Migration = async (params) => {
     id serial PRIMARY KEY,
     title varchar(20),
     color varchar(20),
-    created_at timestamp NOT NULL,
-    updated_at timestamp NOT NULL,
+    createdAt timestamp NOT NULL,
+    updatedAt timestamp NOT NULL,
     users_id integer REFERENCES users(id)
   );
   `);
