@@ -12,3 +12,15 @@ export const createBoard_list = async (boardsId:number,{title}:Board_list) => {
      throw new ErrorResponse("Error creating a list of boards", 400);
   }
 };
+
+export const deleteBoard_list = async (board_listId:number) => {
+  try {
+
+    const deletedBoard_list = await dbBoard_list.deleteBoard_list(board_listId);    
+    return deletedBoard_list;
+
+  } catch (error) {
+     throw new ErrorResponse("Error deleting a list of boards", 400);
+  }
+
+}

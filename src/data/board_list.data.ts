@@ -36,3 +36,13 @@ export const createDefaultBoards_list = async(boards_id:number)=>{
   `;
   return (await query(queryT, queryParams)).rows;
 }
+export const deleteBoard_list = async(board_list_id:number)=>{
+  const queryParams: (string | number | Date)[] = [
+    board_list_id
+  ];
+  let queryT = `
+  DELETE FROM board_list
+  WHERE id = $1 RETURNING  *
+  `;
+  return (await query(queryT, queryParams)).rows;
+}
