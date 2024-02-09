@@ -44,5 +44,5 @@ export const deleteBoard_list = async(board_list_id:number)=>{
   DELETE FROM board_list
   WHERE id = $1 RETURNING  *
   `;
-  return (await query(queryT, queryParams)).rows;
+  return (await query(queryT, queryParams)).rows[0];
 }
