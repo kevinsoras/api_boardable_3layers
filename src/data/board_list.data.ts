@@ -46,3 +46,26 @@ export const deleteBoard_list = async(board_list_id:number)=>{
   `;
   return (await query(queryT, queryParams)).rows[0];
 }
+export const updateBoard_list = async(board_list_id:number,title:string)=>{
+  const dateNow = new Date();
+
+  const queryParams: (string | number | Date)[] = [];
+  let queryT = `UPDATE board_list SET `;
+  //Parameters
+  Object.entries({title,updatedAt:dateNow}).forEach(([key,value])=>{
+    if(value !==null && value !== undefined){
+      if(queryParams.length>0) queryT+=","
+      queryParams.push(value)
+      queryT+=` ${key} = $${queryParams.length}`
+    }
+  })
+  //Condition
+  queryParams.push(board_list_id)
+  queryT+=` WHERE id=$${queryParams.length} RETURNING *`
+
+  console.log(queryT)
+  console.log(queryParams)
+  
+  return (await query(queryT, queryParams)).rows[0];
+
+}
