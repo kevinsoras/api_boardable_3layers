@@ -23,3 +23,14 @@ export const createBoard_card= async (title:string,boards_listId:number,usersId:
   //console.log(queryParams)
   return (await query(queryT, queryParams)).rows[0];
 };
+export const deleteBoard_card = async(board_list_id:number,usersId:number)=>{
+  const queryParams: (string | number | Date)[] = [
+    board_list_id,
+    usersId
+  ];
+  let queryT = `
+  DELETE FROM board_card
+  WHERE id = $1 and users_id=$2 RETURNING  *
+  `;
+  return (await query(queryT, queryParams)).rows[0];
+}

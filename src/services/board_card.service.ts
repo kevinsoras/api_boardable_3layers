@@ -16,3 +16,18 @@ export const createBoard_card= async (users_id:number,boardsId:number,{title}:Bo
     throw new ErrorResponse("Error creating a board card", 400);
   }
 };
+export const deleteBoard_card = async (board_listId:number,usersId:number) => {
+  try {
+
+    const deletedBoard_card = await dbBoard_card.deleteBoard_card(board_listId,usersId);
+    if(!deletedBoard_card){
+      throw new ErrorResponse("Id not found on list of board card", 400);
+    }    
+    return deletedBoard_card;
+
+  } catch (error) {
+    if(error instanceof ErrorResponse) throw error
+     throw new ErrorResponse("Error deleting a board card", 400);
+  }
+
+}
