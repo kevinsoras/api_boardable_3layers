@@ -62,10 +62,7 @@ export const updateBoard_list = async(board_list_id:number,title:string)=>{
   //Condition
   queryParams.push(board_list_id)
   queryT+=` WHERE id=$${queryParams.length} RETURNING *`
-
   console.log(queryT)
   console.log(queryParams)
-  
   return (await query(queryT, queryParams)).rows[0];
-
 }

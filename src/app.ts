@@ -5,6 +5,7 @@ import { authRouter } from "./routers/users.router";
 import errorHandler from "./middlewares/Error";
 import { boardsRouter } from "./routers/boards.router";
 import { board_listRouter } from "./routers/board_list.route";
+import { board_cardRouter } from "./routers/board_card.route";
 const app = express();
 
 app.use(express.json());
@@ -17,6 +18,8 @@ app.use(authRouter)
 app.use(boardsRouter)
 //Boards_list
 app.use(board_listRouter)
+//Board_list
+app.use(board_cardRouter)
 
 app.use(errorHandler)
 app.listen(port, () => {
