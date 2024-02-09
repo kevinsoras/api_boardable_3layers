@@ -5,6 +5,7 @@ export const up: Migration = async (params) => {
   CREATE TABLE board_card (
     id serial PRIMARY KEY,
     title varchar(30),
+    orders integer NOT NULL,
     createdAt timestamp NOT NULL,
     updatedAt timestamp NOT NULL,
     boards_list integer REFERENCES board_list(id) ON DELETE CASCADE NOT NULL ,
