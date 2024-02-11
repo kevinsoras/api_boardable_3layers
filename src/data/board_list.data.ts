@@ -66,3 +66,19 @@ export const updateBoard_list = async(board_list_id:number,title:string)=>{
   console.log(queryParams)
   return (await query(queryT, queryParams)).rows[0];
 }
+export const getBoard_listWithCards=async(users_id:number,  boardId:number):Promise<any[]>=>{
+  let queryT = `
+  SELECT bl.id as idBoardList,bl.title titleBoardList,bc.id idBoardCard,
+  bc.title titleBoardCard,bc.orders ordersBoardCard 
+  FROM board_list bl 
+  LEFT JOIN boards b ON b.users_id=$1
+  LEFT JOIN board_card bc ON bc.boards_list=bl.id
+  WHERE bl.boards_id=$2
+  AND b.id=$2
+  AND bl.id=bc.boards_list
+  ORDER BY bc.orders
+  `;
+  const queryParams: (string | boolean | number)[] = [users_id,boardId];
+  
+  return (await query(queryT, queryParams)).rows;
+}
