@@ -15,6 +15,20 @@ export const getBoards = async (users_id:number,filters:PaginationBoards) => {
 
   }
 };
+export const getBoard = async (users_id:number,boardId:number) => {
+
+  try {
+    const findBoard = await dbBoards.getBoard(users_id,boardId);  
+    if(!findBoard){
+      throw new ErrorResponse("Id not found of boards", 400);
+    }     
+    return findBoard;
+
+  } catch (error) {
+    if(error instanceof ErrorResponse) throw error
+     throw new ErrorResponse("Error getting Board", 400);
+  }
+};
 export const createBoard = async (users_id:number,{title,color}: Boards) => {
   try {
     const boardCreated = await dbBoards.createBoard(title,color,users_id);

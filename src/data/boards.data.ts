@@ -34,3 +34,14 @@ export const getBoards=async(users_id:number,  filters:PaginationBoards)=>{
   
   return (await query(queryT, queryParams)).rows;
 }
+export const getBoard =async(users_id:number,boardId:number)=>{
+  let queryT = `
+  select id,title,color,createdAt,updatedAt,users_id from boards 
+  `;
+  const queryParams: (string | boolean | number)[] = [];
+
+  queryT = filtering(queryT,{users_id,id:boardId}, queryParams);
+
+  
+  return (await query(queryT, queryParams)).rows[0];
+}

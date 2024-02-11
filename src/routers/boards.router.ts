@@ -3,7 +3,7 @@ import { schemaQueryValidation, schemaValidation } from "../middlewares/schemaVa
 import { Boards, PaginationBoards, boardsSchema, paginationBoards } from "../models/boards.schema";
 import { SuccessResponse } from "../utils/Response";
 import { jwtValidation } from "../middlewares/Jwt";
-import { createBoard, getBoards } from "../services/boards.service";
+import { createBoard, getBoard, getBoards } from "../services/boards.service";
 export const boardsRouter = Router();
 
 boardsRouter.get(
@@ -21,7 +21,21 @@ boardsRouter.get(
     }
   }
 );
-
+boardsRouter.get(
+  "/:boardId",
+  jwtValidation(),
+  async (req, res, next) => {
+    try {
+      const {id} = res.locals['userData']
+      const boardId = Number(req.params['boardId']);
+      const findBoard = await getBoard(id,boardId);
+      res.status(200).json(new SuccessResponse(true, findBoard));
+    } catch (error) {
+      console.log(error)
+      next(error);
+    }
+  }
+);
 boardsRouter.post(
   "/",
   jwtValidation(),
