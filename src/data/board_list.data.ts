@@ -75,7 +75,6 @@ export const getBoard_listWithCards=async(users_id:number,  boardId:number):Prom
   LEFT JOIN board_card bc ON bc.boards_list=bl.id
   WHERE bl.boards_id=$2
   AND b.id=$2
-  AND bl.id=bc.boards_list
   ORDER BY bc.orders
   `;
   const queryParams: (string | boolean | number)[] = [users_id,boardId];
