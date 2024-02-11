@@ -72,10 +72,7 @@ export const getBoard_listWithCards = async (
   }
 };
 function formatBoardListWithCards(boardData: BoardListWithCard[]) {
-  // Objeto para almacenar las listas de tableros con sus tarjetas asociadas
   const boardListsWithCards: any = {};
-
-  // Iterar sobre los datos y agrupar las tarjetas por las listas de tableros
   boardData.forEach((data) => {
     const {
       idboardlist,
@@ -85,7 +82,7 @@ function formatBoardListWithCards(boardData: BoardListWithCard[]) {
       ordersboardcard,
     } = data;
 
-    // Si la lista de tableros aún no existe en el objeto, créala
+    // Si la lista no existe , créala
     if (!boardListsWithCards[idboardlist]) {
       boardListsWithCards[idboardlist] = {
         id: idboardlist,
@@ -93,16 +90,17 @@ function formatBoardListWithCards(boardData: BoardListWithCard[]) {
         cards: [],
       };
     }
-
-    // Agregar la tarjeta a la lista de tableros correspondiente
-    boardListsWithCards[idboardlist].cards.push({
-      id: idboardcard,
-      title: titleboardcard,
-      orders: ordersboardcard,
-    });
+    if (idboardcard) {
+      // Solo agrega si existe el id
+      boardListsWithCards[idboardlist].cards.push({
+        id: idboardcard,
+        title: titleboardcard,
+        orders: ordersboardcard,
+      });
+    }
   });
 
-  // Convertir el objeto en un array de listas de tableros con tarjetas
+  // Convertir el objeto en un array ,se hizo asi por temas de performance
   const boardListsArray = Object.values(boardListsWithCards);
   return boardListsArray;
 }
