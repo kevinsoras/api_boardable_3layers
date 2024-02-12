@@ -45,3 +45,14 @@ export const getBoard =async(users_id:number,boardId:number)=>{
   
   return (await query(queryT, queryParams)).rows[0];
 }
+export const deleteBoard = async(users_id:number,boardId:number)=>{
+  const queryParams: (string | number | Date)[] = [
+    boardId,
+    users_id
+  ];
+  let queryT = `
+  DELETE FROM boards
+  WHERE id = $1 and users_id=$2  RETURNING  *
+  `;
+  return (await query(queryT, queryParams)).rows[0];
+}

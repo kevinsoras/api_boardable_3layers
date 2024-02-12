@@ -51,3 +51,15 @@ export const createBoard = async (users_id:number,{title,color}: Boards) => {
     );
   }
 };
+export const deleteBoard = async (users_id:number,boardId:number) => {
+  try {
+    console.log(boardId)
+    const deletedBoard = await dbBoards.deleteBoard(users_id,boardId);
+    if (!deletedBoard) {
+      throw new ErrorResponse("Id not found of list of boards", 400);
+    }
+    return deletedBoard;
+  } catch (error) {
+    throw new ErrorResponse("Error deleting a list of boards", 400);
+  }
+};
